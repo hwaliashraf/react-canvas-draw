@@ -251,6 +251,11 @@ export default class CanvasDraw extends PureComponent {
       const scaleY = this.props.canvasHeight / height;
       const scaleAvg = (scaleX + scaleY) / 2;
 
+      console.log("scaling effects : \n");
+      console.log("scale x : \n" + scaleX);
+      console.log("scale Y : \n" + scaleY);
+      console.log("scaling avg : \n" + scaleAvg);
+
       this.simulateDrawingLines({
         lines: lines.map((line) => ({
           ...line,
@@ -258,7 +263,8 @@ export default class CanvasDraw extends PureComponent {
             x: p.x * scaleX,
             y: p.y * scaleY,
           })),
-          brushRadius: line.brushRadius * scaleAvg,
+          brushRadius: line.brushRadius,
+          // brushRadius: line.brushRadius * scaleAvg,
         })),
         immediate,
       });
