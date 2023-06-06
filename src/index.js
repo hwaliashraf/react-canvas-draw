@@ -121,6 +121,8 @@ export default class CanvasDraw extends PureComponent {
   }
 
   undo = () => {
+    console.log("in undo");
+
     let lines = [];
     if (this.lines.length) {
       lines = this.lines.slice(0, -1);
@@ -133,18 +135,24 @@ export default class CanvasDraw extends PureComponent {
   };
 
   eraseAll = () => {
+    console.log("in eraseAll");
+
     this.erasedLines.push([...this.lines]);
     this.clearExceptErasedLines();
     this.triggerOnChange();
   };
 
   clear = () => {
+    console.log("in clear");
+
     this.erasedLines = [];
     this.clearExceptErasedLines();
     this.resetView();
   };
 
   resetView = () => {
+    console.log("in resetView");
+
     return this.coordSystem.resetView();
   };
 
@@ -153,6 +161,8 @@ export default class CanvasDraw extends PureComponent {
   };
 
   getSaveData = () => {
+    console.log("in getSaveData");
+
     // Construct and return the stringified saveData object
     return JSON.stringify({
       lines: this.lines,
@@ -174,6 +184,8 @@ export default class CanvasDraw extends PureComponent {
    * @param {string} backgroundColour The desired background colour hex code, e.g. "#ffffff" for white.
    */
   getDataURL = (fileType, useBgImage, backgroundColour) => {
+    console.log("in getDataURL");
+
     // Get a reference to the "drawing" layer of the canvas
     let canvasToExport = this.canvas.drawing;
 
@@ -225,6 +237,7 @@ export default class CanvasDraw extends PureComponent {
   };
 
   loadSaveData = (saveData, immediate = this.props.immediateLoading) => {
+    console.log("in loadSaveData");
     if (typeof saveData !== "string") {
       throw new Error("saveData needs to be of type string!");
     }
@@ -327,6 +340,8 @@ export default class CanvasDraw extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
+    console.log("in componentDidUpdate");
+
     if (prevProps.lazyRadius !== this.props.lazyRadius) {
       // Set new lazyRadius values
       this.chainLength = this.props.lazyRadius * window.devicePixelRatio;
@@ -452,6 +467,8 @@ export default class CanvasDraw extends PureComponent {
   };
 
   handleCanvasResize = (entries) => {
+    console.log("in handleCanvasResize");
+
     const saveData = this.getSaveData();
     this.deferRedrawOnViewChange = true;
     try {
@@ -493,6 +510,7 @@ export default class CanvasDraw extends PureComponent {
   };
 
   simulateDrawingLines = ({ lines, immediate }) => {
+    console.log("simulateDrawingLines");
     // Simulate live-drawing of the loaded lines
     // TODO use a generator
     let curTime = 0;
@@ -574,6 +592,7 @@ export default class CanvasDraw extends PureComponent {
   };
 
   saveLine = ({ brushColor, brushRadius } = {}) => {
+    console.log("saveLine");
     if (this.points.length < 2) return;
 
     // Save as new line
@@ -715,6 +734,8 @@ export default class CanvasDraw extends PureComponent {
   };
 
   drawInterface = (ctx, pointer, brush) => {
+    console.log("in drawInterface");
+
     if (this.props.hideInterface) return;
 
     this.clearWindow(ctx);
